@@ -1,5 +1,6 @@
 import React from "react";
 import DetailedInfo from "./DetailedInfo";
+import Like from "../AddDeleteButton/Like";
 
 // const CityCard = props => {
 //   return (
@@ -29,11 +30,16 @@ class CityCard extends React.Component {
 
   render() {
     return (
-      <div onClick={this._onButtonClick}>
-        <h2>
-          {this.props.cityInfo.name}, {this.props.cityInfo.sys.country}
-        </h2>
-        <h3>{this.props.cityInfo.main.temp}</h3>
+      <div>
+        <div onClick={this._onButtonClick}>
+          <h2>
+            {this.props.cityInfo.name}, {this.props.cityInfo.sys.country}
+          </h2>
+          <h3>{this.props.cityInfo.main.temp}</h3>
+        </div>
+        <button onClick={() => this.props.handleLike(this.props.cityInfo.id)}>
+          Like
+        </button>
         {this.state.showComponent ? <DetailedInfo city={this.props} /> : null}
       </div>
     );

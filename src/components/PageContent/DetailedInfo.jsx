@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { ApiRequest } from "../../utils/ApiRequest";
-import AddDeleteButton from "../AddDeleteButton/AddDeleteButton";
 
 class DetailedInfo extends Component {
   state = {
@@ -22,12 +21,7 @@ class DetailedInfo extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <AddDeleteButton></AddDeleteButton>
-        {this.props.city.cityInfo.name}
-      </div>
-    );
+    return <div>{this.props.city.cityInfo.name}</div>;
   }
 }
 

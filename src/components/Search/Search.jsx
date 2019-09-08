@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import cityId from "../../utils/city.list.json";
+import citiesList from "../../utils/city.list.json";
+import { ApiRequest } from "../../utils/ApiRequest";
 
 class Search extends Component {
   state = {
@@ -16,9 +17,29 @@ class Search extends Component {
 
     const search =
       this.state.searched.length > 0
-        ? cityId.find(city => city.name === this.state.searched)
+        ? citiesList.find(city => city.name === this.state.searched)
         : "This city doesn't exist";
-    this.props.onSearch(search);
+
+    this.getSearchedWeatherInfo(search);
+  };
+
+  getSearchedWeatherInfo = searchedCity => {
+    if (typeof searchedCity !== "object") {
+      this.setState({ search: "This city doesn't exist" });
+    }
+    {
+      ApiRequest.create(
+        `https://api.openweathermap.org/data/2.5/group?id=${searchedCity.id}&units=metric&APPID=97ea200bf11177ab3c207304b3be2608`
+      ).get(
+        response => {
+          console.log("call for search", response);
+          this.props.onSearch(response.list[0]);
+        },
+        e => {
+          console.log(e);
+        }
+      );
+    }
   };
 
   render() {
