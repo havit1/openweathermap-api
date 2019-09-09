@@ -10,6 +10,9 @@ class Search extends Component {
   onSearchChange = e => {
     this.setState({ searched: e.target.value });
     console.log(this.state.searched);
+    if (e.target.value === "") {
+      this.props.onSearch([]);
+    }
   };
 
   onHandleSearch = e => {
@@ -18,7 +21,7 @@ class Search extends Component {
     const search =
       this.state.searched.length > 0
         ? citiesList.find(city => city.name === this.state.searched)
-        : "This city doesn't exist";
+        : null;
 
     this.getSearchedWeatherInfo(search);
   };
@@ -26,6 +29,8 @@ class Search extends Component {
   getSearchedWeatherInfo = searchedCity => {
     if (typeof searchedCity !== "object") {
       this.setState({ search: "This city doesn't exist" });
+      this.props.onSearch("This city doesn't exist");
+      return;
     }
     {
       ApiRequest.create(

@@ -13,26 +13,30 @@ class PageContent extends Component {
   getCitiesFromLS() {
     if (!localStorage.getItem("Cities")) {
       return [
-        { name: "Kiev" },
-        { name: "Tokyo" },
-        { name: "New York" },
-        { name: "Hong Kong" },
-        { name: "Paris" },
-        { name: "Berlin" },
-        { name: "Moskva" },
-        { name: "Minsk" },
-        { name: "Warszawa" },
-        { name: "Seoul" }
+        { id: "7532072" },
+        { id: "7533415" },
+        { id: "6695624" },
+        { id: "7530738" },
+        { id: "773357" },
+        { id: "7530729" },
+        { id: "7531906" },
+        { id: "3081046" },
+        { id: "7530984" },
+        { id: "7531734" }
       ];
     } else return JSON.parse(localStorage.getItem("Cities"));
   }
 
   handleLike = incomeCityId => {
     let _cities = [...this.state.data];
+    console.log(this.state.data.find(city => city.id === incomeCityId));
     const clickedCity = this.state.data.find(city => city.id === incomeCityId);
     const index = _cities.indexOf(clickedCity);
-    _cities.splice(index, 1);
+    clickedCity !== undefined
+      ? _cities.splice(index, 1)
+      : _cities.push(this.state.searchedCity);
     this.setState({ data: _cities });
+    localStorage.setItem("Cities", JSON.stringify(_cities));
   };
 
   getWeatherInfo = citiesList => {
@@ -58,16 +62,8 @@ class PageContent extends Component {
     const baseCitiesList = this.getCitiesFromLS();
     this.setState({ cities: baseCitiesList });
 
-    let cities = baseCitiesList.map(cityName => {
-      return fullCitiesList.find(city => city.name === cityName.name);
-    });
-
-    this.getWeatherInfo(cities);
+    this.getWeatherInfo(baseCitiesList);
   }
-
-  // componentWillReceiveProps() {
-  //   this.setState({ search: [] });
-  // }
 
   onSearch = searchedCity => {
     this.setState({ searchedCity });
@@ -76,14 +72,18 @@ class PageContent extends Component {
   render() {
     return (
       <div>
+        <button onClick={() => this.setState({ searchedCity: [] })}>
+          Main page
+        </button>
         <div>
           <Search onSearch={this.onSearch}></Search>
         </div>
-        {typeof this.state.searchedCity === "object" ? (
+        {typeof this.state.searchedCity !== "string" ? (
           this.state.searchedCity.length !== 0 ? (
             <CityCard
               key={this.state.searchedCity.id}
               cityInfo={this.state.searchedCity}
+              handleLike={this.handleLike}
             ></CityCard>
           ) : this.state.data.length !== 0 ? (
             this.state.data.map(city => (
@@ -99,7 +99,7 @@ class PageContent extends Component {
             </div>
           )
         ) : (
-          <h1>{this.state.search}</h1>
+          <h1>{this.state.searchedCity}</h1>
         )}
       </div>
     );
