@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { ApiRequest } from "../../utils/ApiRequest";
-import fullCitiesList from "../../utils/city.list.json";
 import CityCard from "./CityCard";
 import Search from "../Search/Search";
+import UsersCityWeather from "../UsersCityWeather/UsersCityWeather";
 
 class PageContent extends Component {
   state = {
@@ -61,7 +61,6 @@ class PageContent extends Component {
   componentDidMount() {
     const baseCitiesList = this.getCitiesFromLS();
     this.setState({ cities: baseCitiesList });
-
     this.getWeatherInfo(baseCitiesList);
   }
 
@@ -78,6 +77,11 @@ class PageContent extends Component {
         <div>
           <Search onSearch={this.onSearch}></Search>
         </div>
+        {this.props.isGeolocationEnabled ? null : (
+          <div>
+            <UsersCityWeather></UsersCityWeather>
+          </div>
+        )}
         {typeof this.state.searchedCity !== "string" ? (
           this.state.searchedCity.length !== 0 ? (
             <CityCard
