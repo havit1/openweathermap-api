@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import citiesList from "../../utils/city.list.json";
 import { ApiRequest } from "../../utils/ApiRequest";
+import "./Search.scss";
 
 class Search extends Component {
   state = {
@@ -31,7 +32,7 @@ class Search extends Component {
       this.setState({ search: "This city doesn't exist" });
       this.props.onSearch("This city doesn't exist");
       return;
-    }
+    } else if (searchedCity === null) return null;
     {
       ApiRequest.create(
         `https://api.openweathermap.org/data/2.5/group?id=${searchedCity.id}&units=metric&APPID=97ea200bf11177ab3c207304b3be2608`
@@ -49,9 +50,15 @@ class Search extends Component {
 
   render() {
     return (
-      <form>
-        <input type="text" onChange={this.onSearchChange} />
-        <button onClick={this.onHandleSearch}>Search</button>
+      <form className="search-bar">
+        <input
+          className="search-bar__input"
+          type="text"
+          onChange={this.onSearchChange}
+        />
+        <button className="search-bar__btn" onClick={this.onHandleSearch}>
+          Search
+        </button>
       </form>
     );
   }

@@ -1,5 +1,6 @@
 import React from "react";
 import DetailedInfo from "./DetailedInfo";
+import "./CityCard.scss";
 
 class CityCard extends React.Component {
   constructor(props) {
@@ -18,12 +19,11 @@ class CityCard extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="city-card">
         <div onClick={this._onButtonClick}>
-          <h2>
-            {this.props.cityInfo.name}, {this.props.cityInfo.sys.country}
-          </h2>
-          <h3>{this.props.cityInfo.main.temp}</h3>
+          <h2>{this.props.cityInfo.name}</h2>
+          <p>Country: {this.props.cityInfo.sys.country}</p>
+          <h3>{Math.round(this.props.cityInfo.main.temp)}°C</h3>
         </div>
         <button onClick={() => this.props.handleLike(this.props.cityInfo.id)}>
           Like/Dislike

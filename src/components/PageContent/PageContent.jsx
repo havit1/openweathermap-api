@@ -3,6 +3,7 @@ import { ApiRequest } from "../../utils/ApiRequest";
 import CityCard from "./CityCard";
 import Search from "../Search/Search";
 import UsersCityWeather from "../UsersCityWeather/UsersCityWeather";
+import "./PageContent.scss";
 
 class PageContent extends Component {
   state = {
@@ -70,96 +71,54 @@ class PageContent extends Component {
 
   render() {
     return (
-      <div>
-        <button onClick={() => this.setState({ searchedCity: [] })}>
-          Main page
-        </button>
-        <div>
-          <Search onSearch={this.onSearch}></Search>
-        </div>
+      <div className="wrapper">
+        <nav className="top-nav">
+          <button
+            className="top-nav__home-btn"
+            onClick={
+              (() => this.setState({ searchedCity: [] }),
+              () => console.log("test"))
+            }
+          >
+            Main page
+          </button>
+          <div className="top-nav__search-bar">
+            <Search onSearch={this.onSearch}></Search>
+          </div>
+        </nav>
         {this.props.isGeolocationEnabled ? null : (
           <div>
             <UsersCityWeather></UsersCityWeather>
           </div>
         )}
-        {typeof this.state.searchedCity !== "string" ? (
-          this.state.searchedCity.length !== 0 ? (
-            <CityCard
-              key={this.state.searchedCity.id}
-              cityInfo={this.state.searchedCity}
-              handleLike={this.handleLike}
-            ></CityCard>
-          ) : this.state.data.length !== 0 ? (
-            this.state.data.map(city => (
+        <div className="main-content">
+          {typeof this.state.searchedCity !== "string" ? (
+            this.state.searchedCity.length !== 0 ? (
               <CityCard
-                key={city.id}
-                cityInfo={city}
+                key={this.state.searchedCity.id}
+                cityInfo={this.state.searchedCity}
                 handleLike={this.handleLike}
               ></CityCard>
-            ))
+            ) : this.state.data.length !== 0 ? (
+              this.state.data.map(city => (
+                <CityCard
+                  key={city.id}
+                  cityInfo={city}
+                  handleLike={this.handleLike}
+                ></CityCard>
+              ))
+            ) : (
+              <div>
+                <h1>No Cities</h1>
+              </div>
+            )
           ) : (
-            <div>
-              <h1>No Cities</h1>
-            </div>
-          )
-        ) : (
-          <h1>{this.state.searchedCity}</h1>
-        )}
+            <h1>{this.state.searchedCity}</h1>
+          )}
+        </div>
       </div>
     );
   }
 }
 
 export default PageContent;
-
-// componentDidUpdate() {
-//   if (this.state.data.length === 0) {
-//     const ids = this.props.cities.map(city => {
-//       return city.id;
-//     });
-//     this.idsInStr = ids.join(",");
-
-//     ApiRequest.create(
-//       `https://api.openweathermap.org/data/2.5/group?id=${this.idsInStr}&units=metric&APPID=97ea200bf11177ab3c207304b3be2608`
-//     ).get(
-//       response => {
-//         console.log("calling for cities", response);
-//         this.setState({ data: response.list });
-//       },
-//       e => {
-//         console.log(e);
-//       }
-//     );
-
-//     /// тут будет поиск с айдишниками, который возвращает найденные обьекты в стейт.
-//   }
-
-// else if (this.state.search.length === 0) {
-//   this.setState({ search: ["This city doesn't exist"] });
-// }
-// }
-
-//   if (this.state.data.length === 0) {
-//     const ids = props.cities.map(city => {
-//       // debugger;
-//       return city.id;
-//     });
-//     const idsInStr = ids.join(",");
-//     // debugger;
-//     ApiRequest.create(
-//       `https://api.openweathermap.org/data/2.5/group?id=${idsInStr}&units=metric&APPID=97ea200bf11177ab3c207304b3be2608`
-//     ).get(
-//       response => {
-//         console.log("calling for cities", response);
-//         this.setState({ data: response.list });
-//       },
-//       e => {
-//         console.log(e);
-//       }
-//     );
-//   this.setState({ cities });
-// }
-
-// componentWillReceiveProps() {
-//   this.setState({ search: [] });
-// }

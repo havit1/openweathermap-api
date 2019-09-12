@@ -21,7 +21,11 @@ class DetailedInfo extends Component {
   }
 
   render() {
-    return <div>{this.props.city.cityInfo.name}</div>;
+    return (
+      <div>
+        <header>{this.props.city.cityInfo.name}</header>
+      </div>
+    );
   }
 }
 

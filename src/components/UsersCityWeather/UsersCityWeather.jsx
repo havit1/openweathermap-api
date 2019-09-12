@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { ApiRequest } from "../../utils/ApiRequest";
+import "./UserCityWeather.scss";
 
 class UsersCityWeather extends Component {
   constructor() {
@@ -21,7 +22,7 @@ class UsersCityWeather extends Component {
 
   getWeather(latitude, longitude) {
     ApiRequest.create(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&APPID=97ea200bf11177ab3c207304b3be2608`
+      `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&units=metric&APPID=97ea200bf11177ab3c207304b3be2608`
     ).get(
       response => {
         console.log("calling for user's city", response);
@@ -38,7 +39,13 @@ class UsersCityWeather extends Component {
   }
 
   render() {
-    return <h2>{this.state.cityInfo.name}</h2>;
+    return (
+      <div className="user-info">
+        <header className="user-info__city-name">
+          <h3>{this.state.cityInfo.name}</h3>
+        </header>
+      </div>
+    );
   }
 }
 

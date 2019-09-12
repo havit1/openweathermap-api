@@ -1,0 +1,42 @@
+@import "../styles/base.scss";
+@import "../styles/mixins.scss";
+
+button {
+  @include button;
+  font-size: 1.25rem;
+}
+
+.wrapper {
+  background: #ffffff;
+  height: 100vh;
+  padding: 60px 40px 0 40px;
+
+  .top-nav {
+    background-color: #2667f5;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 70px;
+    border-radius: 2px;
+    padding: 0 10px;
+    position: relative;
+
+    &__home-btn {
+      height: 60%;
+      z-index: 1;
+    }
+
+    &__search-bar {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+    }
+  }
+}
+
+.main-content {
+  border-radius: 4px;
+  margin-top: 3rem;
+  padding: 2rem;
+  display: flex;
+}
