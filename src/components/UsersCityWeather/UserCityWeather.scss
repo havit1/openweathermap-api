@@ -3,4 +3,9 @@
 
 .user-info {
   font-size: 2rem;
+  border-bottom: 4px solid #2667f5;
+  border-radius: 3px;
+  &__city-name {
+    height: 100%;
+  }
 }

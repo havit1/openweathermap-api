@@ -23,7 +23,7 @@ class Search extends Component {
       this.state.searched.length > 0
         ? citiesList.find(city => city.name === this.state.searched)
         : null;
-
+    this.props.closeDetailedInfo();
     this.getSearchedWeatherInfo(search);
   };
 

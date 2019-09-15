@@ -22,7 +22,7 @@ class UsersCityWeather extends Component {
 
   getWeather(latitude, longitude) {
     ApiRequest.create(
-      `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&units=metric&APPID=97ea200bf11177ab3c207304b3be2608`
+      `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&APPID=97ea200bf11177ab3c207304b3be2608`
     ).get(
       response => {
         console.log("calling for user's city", response);
@@ -41,9 +41,19 @@ class UsersCityWeather extends Component {
   render() {
     return (
       <div className="user-info">
-        <header className="user-info__city-name">
-          <h3>{this.state.cityInfo.name}</h3>
-        </header>
+        {this.state.cityInfo.length === 0 ? null : (
+          <div>
+            <h2>City: {this.state.cityInfo.name}</h2>
+            <p>Country: {this.state.cityInfo.sys.country}</p>
+            <h3>Temperature: {Math.round(this.state.cityInfo.main.temp)}°C</h3>
+            <p>Humidity: {this.state.cityInfo.main.humidity}</p>
+            <button
+              onClick={() => this.props.showComponent(this.state.cityInfo.id)}
+            >
+              Details
+            </button>
+          </div>
+        )}
       </div>
     );
   }

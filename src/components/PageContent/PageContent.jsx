@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import { ApiRequest } from "../../utils/ApiRequest";
-import CityCard from "./CityCard";
+import CityCard from "../CityCard/CityCard";
 import Search from "../Search/Search";
 import UsersCityWeather from "../UsersCityWeather/UsersCityWeather";
 import "./PageContent.scss";
+import DetailedInfo from "../DetailedInfo/DetailedInfo";
 
 class PageContent extends Component {
   state = {
     data: [],
-    searchedCity: []
+    searchedCity: [],
+    showPage: ""
   };
 
   getCitiesFromLS() {
@@ -40,6 +42,11 @@ class PageContent extends Component {
     localStorage.setItem("Cities", JSON.stringify(_cities));
   };
 
+  changeButtonColor = incomeCityId => {
+    const clickedCity = this.state.data.find(city => city.id === incomeCityId);
+    return clickedCity !== undefined ? true : false;
+  };
+
   getWeatherInfo = citiesList => {
     if (!citiesList) return "no cities";
 
@@ -69,53 +76,88 @@ class PageContent extends Component {
     this.setState({ searchedCity });
   };
 
+  _onButtonClick = id => {
+    const showComponent = !this.state.showComponent;
+    this.setState({
+      showComponent
+    });
+    this.setState({ showPage: id });
+  };
+
+  closeDetailedInfo = () => {
+    this.setState({ showComponent: false }, this.setState({ showPage: "" }));
+  };
+
+  onMainBtnClick = () => {
+    this.closeDetailedInfo();
+    this.setState({ searchedCity: [] });
+  };
+
   render() {
     return (
       <div className="wrapper">
         <nav className="top-nav">
-          <button
-            className="top-nav__home-btn"
-            onClick={
-              (() => this.setState({ searchedCity: [] }),
-              () => console.log("test"))
-            }
-          >
+          <button className="top-nav__home-btn" onClick={this.onMainBtnClick}>
             Main page
           </button>
           <div className="top-nav__search-bar">
-            <Search onSearch={this.onSearch}></Search>
+            <Search
+              closeDetailedInfo={this.closeDetailedInfo}
+              onSearch={this.onSearch}
+            ></Search>
           </div>
         </nav>
-        {this.props.isGeolocationEnabled ? null : (
+
+        {!this.state.showComponent ? (
+          <div className="main-content-wrapper">
+            {this.props.isGeolocationEnabled ? null : (
+              <div>
+                <UsersCityWeather
+                  showComponent={this._onButtonClick}
+                ></UsersCityWeather>
+              </div>
+            )}
+            <div className="main-content">
+              {typeof this.state.searchedCity !== "string" ? (
+                this.state.searchedCity.length !== 0 ? (
+                  <CityCard
+                    changeButtonColor={this.changeButtonColor}
+                    key={this.state.searchedCity.id}
+                    cityInfo={this.state.searchedCity}
+                    handleLike={this.handleLike}
+                    showComponent={this._onButtonClick}
+                  ></CityCard>
+                ) : this.state.data.length !== 0 ? (
+                  this.state.data.map(city => (
+                    <CityCard
+                      changeButtonColor={this.changeButtonColor}
+                      key={city.id}
+                      cityInfo={city}
+                      handleLike={this.handleLike}
+                      showComponent={this._onButtonClick}
+                    ></CityCard>
+                  ))
+                ) : (
+                  <div>
+                    <h1>No Cities</h1>
+                  </div>
+                )
+              ) : (
+                <h1>{this.state.searchedCity}</h1>
+              )}
+            </div>
+          </div>
+        ) : (
           <div>
-            <UsersCityWeather></UsersCityWeather>
+            <button
+              className="detailed-info__btn"
+              onClick={this.closeDetailedInfo}
+            >
+              Close detailed info
+            </button>
+            <DetailedInfo city={this.state.showPage}></DetailedInfo>
           </div>
         )}
-        <div className="main-content">
-          {typeof this.state.searchedCity !== "string" ? (
-            this.state.searchedCity.length !== 0 ? (
-              <CityCard
-                key={this.state.searchedCity.id}
-                cityInfo={this.state.searchedCity}
-                handleLike={this.handleLike}
-              ></CityCard>
-            ) : this.state.data.length !== 0 ? (
-              this.state.data.map(city => (
-                <CityCard
-                  key={city.id}
-                  cityInfo={city}
-                  handleLike={this.handleLike}
-                ></CityCard>
-              ))
-            ) : (
-              <div>
-                <h1>No Cities</h1>
-              </div>
-            )
-          ) : (
-            <h1>{this.state.searchedCity}</h1>
-          )}
-        </div>
       </div>
     );
   }

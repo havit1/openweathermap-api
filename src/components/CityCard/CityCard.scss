@@ -1,0 +1,12 @@
+.city-card {
+  position: relative;
+  margin: 20px;
+  background-color: #2668f5b6;
+  color: #ffffff;
+  padding: 10px;
+  transition-duration: 1s;
+
+  &:hover {
+    background-color: #2667f5;
+  }
+}
