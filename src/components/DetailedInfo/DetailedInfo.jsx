@@ -25,7 +25,7 @@ class DetailedInfo extends Component {
 
   getPhoto = name => {
     ApiRequest.create(
-      `https://api.unsplash.com/search/photos?page=1&query=${name},town&client_id=1daed900b99463debb658164eea9672dc7f95f9939b97a745a479ddbe5592be8`
+      `https://api.unsplash.com/search/photos?page=1-10&query=${name},town&client_id=1daed900b99463debb658164eea9672dc7f95f9939b97a745a479ddbe5592be8`
     ).get(
       response => {
         if (response) {

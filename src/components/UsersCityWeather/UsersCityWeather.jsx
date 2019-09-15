@@ -48,6 +48,7 @@ class UsersCityWeather extends Component {
             <h3>Temperature: {Math.round(this.state.cityInfo.main.temp)}°C</h3>
             <p>Humidity: {this.state.cityInfo.main.humidity}</p>
             <button
+              className="user-info__button"
               onClick={() => this.props.showComponent(this.state.cityInfo.id)}
             >
               Details

@@ -3,7 +3,8 @@
 
 button {
   @include button;
-  font-size: 1.25rem;
+  font-size: 1.6rem;
+  color: #2667f5;
 }
 
 .wrapper {
@@ -20,7 +21,8 @@ button {
     padding: 0 10px;
     position: relative;
 
-    &__home-btn {
+    &__home-button {
+      @include button;
       height: 60%;
       z-index: 1;
     }
@@ -41,8 +43,7 @@ button {
   padding: 2rem;
 }
 
-.detailed-info__btn {
-  @include button;
+.detailed-info__button {
   background-color: #2667f5;
   color: white;
   margin-bottom: 5px;

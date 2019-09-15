@@ -97,7 +97,10 @@ class PageContent extends Component {
     return (
       <div className="wrapper">
         <nav className="top-nav">
-          <button className="top-nav__home-btn" onClick={this.onMainBtnClick}>
+          <button
+            className="top-nav__home-button"
+            onClick={this.onMainBtnClick}
+          >
             Main page
           </button>
           <div className="top-nav__search-bar">
@@ -150,7 +153,7 @@ class PageContent extends Component {
         ) : (
           <div>
             <button
-              className="detailed-info__btn"
+              className="detailed-info__button"
               onClick={this.closeDetailedInfo}
             >
               Close detailed info

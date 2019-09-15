@@ -18,5 +18,6 @@
 
   &__btn {
     height: 60%;
+    @include button;
   }
 }
