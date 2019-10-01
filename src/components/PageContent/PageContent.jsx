@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import { ApiRequest } from "../../utils/ApiRequest";
-import CityCard from "../CityCard/CityCard";
-import Search from "../Search/Search";
-import UsersCityWeather from "../UsersCityWeather/UsersCityWeather";
-import "./PageContent.scss";
-import DetailedInfo from "../DetailedInfo/DetailedInfo";
+
+import PageContentRender from "./PageContentRender";
 
 class PageContent extends Component {
   state = {
@@ -95,73 +92,11 @@ class PageContent extends Component {
 
   render() {
     return (
-      <div className="wrapper">
-        <nav className="top-nav">
-          <button
-            className="top-nav__home-button"
-            onClick={this.onMainBtnClick}
-          >
-            Main page
-          </button>
-          <div className="top-nav__search-bar">
-            <Search
-              closeDetailedInfo={this.closeDetailedInfo}
-              onSearch={this.onSearch}
-            ></Search>
-          </div>
-        </nav>
-
-        {!this.state.showComponent ? (
-          <div className="main-content-wrapper">
-            {this.props.isGeolocationEnabled ? null : (
-              <div>
-                <UsersCityWeather
-                  showComponent={this._onButtonClick}
-                ></UsersCityWeather>
-              </div>
-            )}
-            <div className="main-content">
-              {typeof this.state.searchedCity !== "string" ? (
-                this.state.searchedCity.length !== 0 ? (
-                  <CityCard
-                    changeButtonColor={this.changeButtonColor}
-                    key={this.state.searchedCity.id}
-                    cityInfo={this.state.searchedCity}
-                    handleLike={this.handleLike}
-                    showComponent={this._onButtonClick}
-                  ></CityCard>
-                ) : this.state.data.length !== 0 ? (
-                  this.state.data.map(city => (
-                    <CityCard
-                      changeButtonColor={this.changeButtonColor}
-                      key={city.id}
-                      cityInfo={city}
-                      handleLike={this.handleLike}
-                      showComponent={this._onButtonClick}
-                    ></CityCard>
-                  ))
-                ) : (
-                  <div>
-                    <h1>No Cities</h1>
-                  </div>
-                )
-              ) : (
-                <h1>{this.state.searchedCity}</h1>
-              )}
-            </div>
-          </div>
-        ) : (
-          <div>
-            <button
-              className="detailed-info__button"
-              onClick={this.closeDetailedInfo}
-            >
-              Close detailed info
-            </button>
-            <DetailedInfo city={this.state.showPage}></DetailedInfo>
-          </div>
-        )}
-      </div>
+      <PageContentRender
+        {...this}
+        {...this.props}
+        {...this.state}
+      ></PageContentRender>
     );
   }
 }
