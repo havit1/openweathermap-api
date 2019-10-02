@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import citiesList from "../../utils/city.list.json";
-import { ApiRequest } from "../../utils/ApiRequest";
+import http from "../../utils/httpService";
 import "./Search.scss";
 
 class Search extends Component {
@@ -10,7 +10,6 @@ class Search extends Component {
 
   onSearchChange = e => {
     this.setState({ searched: e.target.value });
-    console.log(this.state.searched);
     if (e.target.value === "") {
       this.props.onSearch([]);
     }
@@ -27,36 +26,30 @@ class Search extends Component {
     this.getSearchedWeatherInfo(search);
   };
 
-  getSearchedWeatherInfo = searchedCity => {
+  getSearchedWeatherInfo = async searchedCity => {
     if (typeof searchedCity !== "object") {
       this.setState({ search: "This city doesn't exist" });
       this.props.onSearch("This city doesn't exist");
       return;
     } else if (searchedCity === null) return null;
-    {
-      ApiRequest.create(
-        `https://api.openweathermap.org/data/2.5/group?id=${searchedCity.id}&units=metric&APPID=97ea200bf11177ab3c207304b3be2608`
-      ).get(
-        response => {
-          console.log("call for search", response);
-          this.props.onSearch(response.list[0]);
-        },
-        e => {
-          console.log(e);
-        }
-      );
-    }
+
+    const searchedCityInfo = await http.get(
+      `https://api.openweathermap.org/data/2.5/group?id=${searchedCity.id}&units=metric&APPID=97ea200bf11177ab3c207304b3be2608`
+    );
+    this.props.onSearch(searchedCityInfo.data.list[0]);
   };
 
   render() {
+    const { onSearchChange, onHandleSearch } = this;
+
     return (
       <form className="search-bar">
         <input
           className="search-bar__input"
           type="text"
-          onChange={this.onSearchChange}
+          onChange={onSearchChange}
         />
-        <button className="search-bar__btn" onClick={this.onHandleSearch}>
+        <button className="search-bar__btn" onClick={onHandleSearch}>
           Search
         </button>
       </form>

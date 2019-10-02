@@ -1,13 +1,20 @@
 import React from "react";
 import "../styles/bootstrap-4.3.1-dist/css/bootstrap.css";
 import "./DetailedInfo.scss";
+import Pagination from "../../utils/pagination";
 
-const DetailedInfoBody = props => {
+const DetailedInfoBody = ({
+  data,
+  photo,
+  showComponent,
+  handlePageChange,
+  currentPage
+}) => {
   return (
-    <div class="detailed-info">
-      {props.data.length === 0 || props.photo.length === 0 ? null : (
-        <div>
-          <h2>{props.data.city.name}</h2>
+    <div>
+      {showComponent === true ? (
+        <div className="detailed-info">
+          <h2>{data.city.name}</h2>
           <table className="table">
             <thead>
               <tr>
@@ -29,8 +36,8 @@ const DetailedInfoBody = props => {
               </tr>
             </thead>
             <tbody>
-              {props.data.list.map(day => (
-                <tr className="table-info">
+              {data.info.map(day => (
+                <tr key={day.dt_txt} className="table-info">
                   <th scope="row">
                     {day.dt_txt
                       .slice(5, 16)
@@ -45,7 +52,18 @@ const DetailedInfoBody = props => {
               ))}
             </tbody>
           </table>
-          <img src={props.photo.urls.small} alt="" />
+          <Pagination
+            className="pagination"
+            itemsCount={data.list.length}
+            pageSize={7}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
+          <img className="picture" src={photo.urls.small} alt="" />
+        </div>
+      ) : (
+        <div className="loading">
+          <h2>Still loading</h2>
         </div>
       )}
     </div>

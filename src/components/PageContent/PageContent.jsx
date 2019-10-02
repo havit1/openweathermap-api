@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import { ApiRequest } from "../../utils/ApiRequest";
-
+import http from "../../utils/httpService";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import PageContentRender from "./PageContentRender";
+import { toast } from "react-toastify";
 
 class PageContent extends Component {
   state = {
@@ -29,12 +31,15 @@ class PageContent extends Component {
 
   handleLike = incomeCityId => {
     let _cities = [...this.state.data];
-    console.log(this.state.data.find(city => city.id === incomeCityId));
     const clickedCity = this.state.data.find(city => city.id === incomeCityId);
     const index = _cities.indexOf(clickedCity);
-    clickedCity !== undefined
-      ? _cities.splice(index, 1)
-      : _cities.push(this.state.searchedCity);
+    if (clickedCity !== undefined) {
+      _cities.splice(index, 1);
+      toast.warn("Deleted this city from main page");
+    } else {
+      _cities.push(this.state.searchedCity);
+      toast.success("Added this city on main page");
+    }
     this.setState({ data: _cities });
     localStorage.setItem("Cities", JSON.stringify(_cities));
   };
@@ -50,23 +55,15 @@ class PageContent extends Component {
     let ids = citiesList.map(city => city.id);
     ids = ids.join(",");
 
-    ApiRequest.create(
+    return http.get(
       `https://api.openweathermap.org/data/2.5/group?id=${ids}&units=metric&APPID=97ea200bf11177ab3c207304b3be2608`
-    ).get(
-      response => {
-        console.log("calling for cities", response);
-        this.setState({ data: response.list });
-      },
-      e => {
-        console.log(e);
-      }
     );
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     const baseCitiesList = this.getCitiesFromLS();
-    this.setState({ cities: baseCitiesList });
-    this.getWeatherInfo(baseCitiesList);
+    const weather = await this.getWeatherInfo(baseCitiesList);
+    this.setState({ data: weather.data.list, cities: baseCitiesList });
   }
 
   onSearch = searchedCity => {
@@ -92,11 +89,15 @@ class PageContent extends Component {
 
   render() {
     return (
-      <PageContentRender
-        {...this}
-        {...this.props}
-        {...this.state}
-      ></PageContentRender>
+      <React.Fragment>
+        <ToastContainer />
+
+        <PageContentRender
+          {...this}
+          {...this.props}
+          {...this.state}
+        ></PageContentRender>
+      </React.Fragment>
     );
   }
 }

@@ -51,7 +51,7 @@ const PageContentRender = ({
                   handleLike={handleLike}
                   showComponent={_onButtonClick}
                 ></CityCard>
-              ) : data.length !== 0 ? (
+              ) : (
                 data.map(city => (
                   <CityCard
                     changeButtonColor={changeButtonColor}
@@ -61,10 +61,6 @@ const PageContentRender = ({
                     showComponent={_onButtonClick}
                   ></CityCard>
                 ))
-              ) : (
-                <div>
-                  <h1>No Cities</h1>
-                </div>
               )
             ) : (
               <h1>{searchedCity}</h1>
