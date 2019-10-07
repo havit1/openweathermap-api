@@ -42,7 +42,7 @@ const PageContentRender = ({
             </div>
           )}
           <div className="main-content">
-            {typeof searchedCity !== "string" ? (
+            {searchedCity !== null ? (
               searchedCity.length !== 0 ? (
                 <CityCard
                   changeButtonColor={changeButtonColor}
@@ -63,7 +63,7 @@ const PageContentRender = ({
                 ))
               )
             ) : (
-              <h1>{searchedCity}</h1>
+              <h1>No such city or misspelled name</h1>
             )}
           </div>
         </div>

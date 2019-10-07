@@ -27,9 +27,9 @@ class Search extends Component {
   };
 
   getSearchedWeatherInfo = async searchedCity => {
-    if (typeof searchedCity !== "object") {
+    if (searchedCity === undefined) {
       this.setState({ search: "This city doesn't exist" });
-      this.props.onSearch("This city doesn't exist");
+      this.props.onSearch(null);
       return;
     } else if (searchedCity === null) return null;
 

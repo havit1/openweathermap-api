@@ -50,7 +50,7 @@ class PageContent extends Component {
   };
 
   getWeatherInfo = citiesList => {
-    if (!citiesList) return "no cities";
+    if (!citiesList) return null;
 
     let ids = citiesList.map(city => city.id);
     ids = ids.join(",");
