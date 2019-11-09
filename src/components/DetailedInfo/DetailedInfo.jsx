@@ -28,12 +28,16 @@ class DetailedInfo extends Component {
   };
 
   async componentDidMount() {
+    console.log(this.state)
     let idToSearch = this.props.city;
     const detailedInfo = await this.getDetailedInfo(idToSearch);
-    const photo = await this.getPhoto(this.state.data.name);
+
+  this.setState({data: detailedInfo.data})
+
+    const photo = await this.getPhoto(this.state.data.city.name);
 
     this.setState({
-      data: detailedInfo.data,
+      // data: detailedInfo.data,
       image: photo.data.results[Math.floor(Math.random() * (10 - 0) + 0)],
       showComponent: true
     });
