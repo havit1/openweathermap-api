@@ -1,0 +1,19 @@
+@import "../styles/base.scss";
+@import "../styles/mixins.scss";
+
+.user-info {
+  font-size: 2rem;
+  border-bottom: 4px solid #2667f5;
+  border-radius: 3px;
+  color: #2667f5;
+  &__city-name {
+    height: 100%;
+  }
+
+  &__button {
+    @include button;
+    background-color: #2667f5;
+    margin-bottom: 10px;
+    color: white;
+  }
+}
