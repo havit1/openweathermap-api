@@ -10,14 +10,9 @@ html {
   font-size: 16px;
 }
 
-body,
-h1,
-h2,
-h3,
-h4,
-p,
-ul,
-ol {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
 }
