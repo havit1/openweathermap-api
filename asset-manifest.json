@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/openweathermap-api/static/css/main.95abad8d.chunk.css",
+    "main.js": "/openweathermap-api/static/js/main.826b5ddf.chunk.js",
+    "main.js.map": "/openweathermap-api/static/js/main.826b5ddf.chunk.js.map",
+    "runtime~main.js": "/openweathermap-api/static/js/runtime~main.c3995d25.js",
+    "runtime~main.js.map": "/openweathermap-api/static/js/runtime~main.c3995d25.js.map",
+    "static/css/2.5dbdccff.chunk.css": "/openweathermap-api/static/css/2.5dbdccff.chunk.css",
+    "static/js/2.ab9e3110.chunk.js": "/openweathermap-api/static/js/2.ab9e3110.chunk.js",
+    "static/js/2.ab9e3110.chunk.js.map": "/openweathermap-api/static/js/2.ab9e3110.chunk.js.map",
+    "index.html": "/openweathermap-api/index.html",
+    "precache-manifest.25c3039fef34b732f32bded0ff5bccc5.js": "/openweathermap-api/precache-manifest.25c3039fef34b732f32bded0ff5bccc5.js",
+    "service-worker.js": "/openweathermap-api/service-worker.js",
+    "static/css/2.5dbdccff.chunk.css.map": "/openweathermap-api/static/css/2.5dbdccff.chunk.css.map",
+    "static/css/main.95abad8d.chunk.css.map": "/openweathermap-api/static/css/main.95abad8d.chunk.css.map"
+  }
+}
