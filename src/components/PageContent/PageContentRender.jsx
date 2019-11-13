@@ -12,11 +12,15 @@ const PageContentRender = ({
   _onButtonClick,
   changeButtonColor,
   handleLike,
-  isGeolocationEnabled,
   showComponent,
   searchedCity,
   showPage,
-  data
+  data,
+  showUserLocationWindow,
+  onCloseUserLocationWindow,
+  geolocationEnabled,
+  getSearchedCityWeather,
+  searchedCityInfo
 }) => {
   return (
     <div className="wrapper">
@@ -28,26 +32,34 @@ const PageContentRender = ({
           <Search
             closeDetailedInfo={closeDetailedInfo}
             onSearch={onSearch}
+            getSearchedCityWeather={getSearchedCityWeather}
           ></Search>
         </div>
       </nav>
-
       {!showComponent ? (
         <div className="main-content-wrapper">
-          {isGeolocationEnabled ? null : (
+          {geolocationEnabled === "granted" ? (
             <div>
-              <UsersCityWeather
-                showComponent={_onButtonClick}
-              ></UsersCityWeather>
+              {showUserLocationWindow ? (
+                <div>
+                  <h1>Your location information:</h1>
+                  <UsersCityWeather
+                    showComponent={_onButtonClick}
+                  ></UsersCityWeather>
+                </div>
+              ) : null}
+              <button onClick={onCloseUserLocationWindow}>
+                {showUserLocationWindow ? "Close" : "Show"} user location window
+              </button>
             </div>
-          )}
+          ) : null}
           <div className="main-content">
-            {searchedCity !== null ? (
-              searchedCity.length !== 0 ? (
+            {searchedCityInfo !== null ? (
+              searchedCityInfo.length !== 0 ? (
                 <CityCard
                   changeButtonColor={changeButtonColor}
-                  key={searchedCity.id}
-                  cityInfo={searchedCity}
+                  key={searchedCityInfo.id}
+                  cityInfo={searchedCityInfo}
                   handleLike={handleLike}
                   showComponent={_onButtonClick}
                 ></CityCard>

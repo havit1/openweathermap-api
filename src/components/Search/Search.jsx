@@ -5,22 +5,19 @@ import "./Search.scss";
 
 class Search extends Component {
   state = {
-    searched: ""
+    searchedLine: "",
+    searchedCityWeather: {}
   };
 
   onSearchChange = e => {
-    this.setState({ searched: e.target.value });
-    if (e.target.value === "") {
-      this.props.onSearch([]);
-    }
+    this.setState({ searchedLine: e.target.value });
   };
 
   onHandleSearch = e => {
     e.preventDefault();
-
     const search =
-      this.state.searched.length > 0
-        ? citiesList.find(city => city.name === this.state.searched)
+      this.state.searchedLine.length > 0
+        ? citiesList.find(city => city.name === this.state.searchedLine)
         : null;
     this.props.closeDetailedInfo();
     this.getSearchedWeatherInfo(search);
@@ -28,15 +25,14 @@ class Search extends Component {
 
   getSearchedWeatherInfo = async searchedCity => {
     if (searchedCity === undefined) {
-      this.setState({ search: "This city doesn't exist" });
-      this.props.onSearch(null);
+      this.props.getSearchedCityWeather(null);
       return;
     } else if (searchedCity === null) return null;
 
     const searchedCityInfo = await http.get(
       `https://api.openweathermap.org/data/2.5/group?id=${searchedCity.id}&units=metric&APPID=97ea200bf11177ab3c207304b3be2608`
     );
-    this.props.onSearch(searchedCityInfo.data.list[0]);
+    this.props.getSearchedCityWeather(searchedCityInfo.data.list[0]);
   };
 
   render() {

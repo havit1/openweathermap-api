@@ -2,20 +2,20 @@ import React from "react";
 import "./CityCard.scss";
 import Like from "../like/like";
 
-function CityCard(props) {
+function CityCard({ cityInfo, changeButtonColor, handleLike, showComponent }) {
   return (
     <div>
       <div className="city-card">
         <Like
-          cityId={props.cityInfo.id}
-          onMainPage={props.changeButtonColor}
-          handleLike={props.handleLike}
+          cityId={cityInfo.id}
+          onMainPage={changeButtonColor}
+          handleLike={handleLike}
         ></Like>
-        <div onClick={() => props.showComponent(props.cityInfo.id)}>
-          <h2>City: {props.cityInfo.name}</h2>
-          <p>Country: {props.cityInfo.sys.country}</p>
-          <h3>Temperature: {Math.round(props.cityInfo.main.temp)}°C</h3>
-          <p>Humidity: {props.cityInfo.main.humidity}</p>
+        <div onClick={() => showComponent(cityInfo.id)}>
+          <h2>City: {cityInfo.name}</h2>
+          <p>Country: {cityInfo.sys.country}</p>
+          <h3>Temperature: {Math.round(cityInfo.main.temp)}°C</h3>
+          <p>Humidity: {cityInfo.main.humidity}</p>
         </div>
       </div>
     </div>

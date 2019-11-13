@@ -8,11 +8,15 @@ import { toast } from "react-toastify";
 class PageContent extends Component {
   state = {
     data: [],
-    searchedCity: [],
-    showPage: ""
+    searchedCityInfo: [],
+    searchedCity: "",
+    showPage: "",
+    showUserLocationWindow: false,
+    geolocationEnabled: false
   };
 
   getCitiesFromLS() {
+    //good
     if (!localStorage.getItem("Cities")) {
       return [
         { id: "7532072" },
@@ -30,6 +34,7 @@ class PageContent extends Component {
   }
 
   handleLike = incomeCityId => {
+    //good, i guess
     let _cities = [...this.state.data];
     const clickedCity = this.state.data.find(city => city.id === incomeCityId);
     const index = _cities.indexOf(clickedCity);
@@ -37,7 +42,7 @@ class PageContent extends Component {
       _cities.splice(index, 1);
       toast.warn("Deleted this city from main page");
     } else {
-      _cities.push(this.state.searchedCity);
+      _cities.push(this.state.searchedCityInfo);
       toast.success("Added this city on main page");
     }
     this.setState({ data: _cities });
@@ -45,32 +50,38 @@ class PageContent extends Component {
   };
 
   changeButtonColor = incomeCityId => {
+    //dk what's going on here
     const clickedCity = this.state.data.find(city => city.id === incomeCityId);
     return clickedCity !== undefined ? true : false;
   };
 
   getWeatherInfo = citiesList => {
+    //ok
     if (!citiesList) return null;
 
-    let ids = citiesList.map(city => city.id);
-    ids = ids.join(",");
+    let idsToSearch = citiesList.map(city => city.id).join(",");
 
     return http.get(
-      `https://api.openweathermap.org/data/2.5/group?id=${ids}&units=metric&APPID=97ea200bf11177ab3c207304b3be2608`
+      `https://api.openweathermap.org/data/2.5/group?id=${idsToSearch}&units=metric&APPID=97ea200bf11177ab3c207304b3be2608`
     );
   };
 
   async componentDidMount() {
+    //maybe ok
     const baseCitiesList = this.getCitiesFromLS();
-    const weather = await this.getWeatherInfo(baseCitiesList);
-    this.setState({ data: weather.data.list, cities: baseCitiesList });
+    const weatherInfo = await this.getWeatherInfo(baseCitiesList);
+    this.setState({ data: weatherInfo.data.list, cities: baseCitiesList });
+    navigator.permissions.query({ name: "geolocation" }).then(status => {
+      this.setState({ geolocationEnabled: status.state });
+    });
   }
 
-  onSearch = searchedCity => {
-    this.setState({ searchedCity });
+  getSearchedCityWeather = searchedCityInfo => {
+    this.setState({ searchedCityInfo });
   };
 
   _onButtonClick = id => {
+    //wut
     const showComponent = !this.state.showComponent;
     this.setState({
       showComponent
@@ -79,23 +90,31 @@ class PageContent extends Component {
   };
 
   closeDetailedInfo = () => {
+    //wat
     this.setState({ showComponent: false }, this.setState({ showPage: "" }));
   };
 
   onMainBtnClick = () => {
+    //why
     this.closeDetailedInfo();
-    this.setState({ searchedCity: [] });
+    this.setState({ searchedCityInfo: [] });
+  };
+
+  onCloseUserLocationWindow = () => {
+    //that's ok
+    this.setState({
+      showUserLocationWindow: !this.state.showUserLocationWindow
+    });
   };
 
   render() {
     return (
       <React.Fragment>
         <ToastContainer />
-
         <PageContentRender
-          {...this}
-          {...this.props}
-          {...this.state}
+          {...this} //wtf
+          {...this.props} //wtf
+          {...this.state} //wtf
         ></PageContentRender>
       </React.Fragment>
     );
