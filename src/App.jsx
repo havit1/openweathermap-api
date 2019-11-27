@@ -3,11 +3,7 @@ import "./App.scss";
 import PageContent from "./components/PageContent/PageContent";
 
 function App() {
-  return (
-    <div>
-      <PageContent />
-    </div>
-  );
+  return <PageContent />;
 }
 
 export default App;

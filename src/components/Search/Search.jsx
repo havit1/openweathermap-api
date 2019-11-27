@@ -46,7 +46,7 @@ class Search extends Component {
           onChange={onSearchChange}
         />
         <button className="search-bar__btn" onClick={onHandleSearch}>
-          Search
+          Find
         </button>
       </form>
     );

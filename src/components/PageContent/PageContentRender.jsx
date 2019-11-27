@@ -24,20 +24,18 @@ const PageContentRender = ({
 }) => {
   return (
     <div className="wrapper">
-      <nav className="top-nav">
-        <button className="top-nav__home-button" onClick={onMainBtnClick}>
-          Main page
+      <header className="header">
+        <button className="header__home-button" onClick={onMainBtnClick}>
+          Home
         </button>
-        <div className="top-nav__search-bar">
-          <Search
-            closeDetailedInfo={closeDetailedInfo}
-            onSearch={onSearch}
-            getSearchedCityWeather={getSearchedCityWeather}
-          ></Search>
-        </div>
-      </nav>
+        <Search
+          closeDetailedInfo={closeDetailedInfo}
+          onSearch={onSearch}
+          getSearchedCityWeather={getSearchedCityWeather}
+        ></Search>
+      </header>
       {!showComponent ? (
-        <div className="main-content-wrapper">
+        <main className="main-content-wrapper">
           {geolocationEnabled === "granted" ? (
             <div>
               {showUserLocationWindow ? (
@@ -78,7 +76,7 @@ const PageContentRender = ({
               <h1>No such city or misspelled name</h1>
             )}
           </div>
-        </div>
+        </main>
       ) : (
         <div>
           <button className="detailed-info__button" onClick={closeDetailedInfo}>

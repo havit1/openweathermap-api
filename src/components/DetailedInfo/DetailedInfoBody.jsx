@@ -1,5 +1,4 @@
 import React from "react";
-import "../styles/bootstrap-4.3.1-dist/css/bootstrap.css";
 import "./DetailedInfo.scss";
 import Pagination from "../../utils/pagination";
 
