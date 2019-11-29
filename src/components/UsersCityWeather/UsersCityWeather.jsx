@@ -52,9 +52,10 @@ class UsersCityWeather extends Component {
     return dayName;
   };
 
-  transformWeather = weatherListArray => {
+  getWeatherForFutureDays = weatherListArray => {
     const weatherForNextDays = [];
     const weatherListTest = [...weatherListArray];
+
     for (let i = 0; i < weatherListTest.length; i++) {
       const weatherListNextDay = weatherListTest.filter(
         day =>
@@ -72,8 +73,30 @@ class UsersCityWeather extends Component {
       );
     }
     weatherForNextDays.splice(0, 1);
-    console.log(weatherForNextDays);
-    return weatherForNextDays;
+
+    const minMaxTemp = this.getMinMaxTemp(weatherForNextDays);
+
+    console.log(minMaxTemp);
+    return minMaxTemp;
+  };
+
+  getMinMaxTemp = tempList => {
+    const minMaxWeatherForEachDay = [];
+
+    tempList.map(day => {
+      let maxTemp = day[0].main.temp_max,
+        minTemp = day[0].main.temp_min,
+        date = day[0].dt_txt,
+        icon = day[0].weather[0].icon;
+      day.map(time => {
+        if (time.main.temp_max > maxTemp)
+          maxTemp = Math.round(time.main.temp_max);
+        if (time.main.temp_min < minTemp)
+          minTemp = Math.round(time.main.temp_min);
+      });
+      minMaxWeatherForEachDay.push({ minTemp, maxTemp, date, icon });
+    });
+    return minMaxWeatherForEachDay;
   };
 
   render() {
@@ -97,6 +120,7 @@ class UsersCityWeather extends Component {
                 {this.getDayName(this.state.cityInfo.data.list[0].dt_txt)}
               </h3>
               <img
+                alt="/"
                 src={`http://openweathermap.org/img/wn/${this.state.cityInfo.data.list[0].weather[0].icon}@2x.png`}
               ></img>
               {/*
@@ -109,12 +133,16 @@ class UsersCityWeather extends Component {
               </button> */}
             </div>
             <div className="user-info__nextdays">
-              {this.transformWeather(this.state.cityInfo.data.list).map(
+              {this.getWeatherForFutureDays(this.state.cityInfo.data.list).map(
                 item => (
-                  <div>
-                    {item.map(item => (
-                      <div>{this.getDayName(item.dt_txt)}</div>
-                    ))}
+                  <div key={item.date}>
+                    <h3>{this.getDayName(item.date)}</h3>
+                    <img
+                      alt="/"
+                      src={`http://openweathermap.org/img/wn/${item.icon}.png`}
+                    ></img>
+                    <div>Min temp : {item.minTemp}</div>
+                    <div>Max temp : {item.maxTemp}</div>
                   </div>
                 )
               )}
