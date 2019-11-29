@@ -11,7 +11,7 @@ class PageContent extends Component {
     searchedCityInfo: [],
     searchedCity: "",
     showPage: "",
-    showUserLocationWindow: false,
+    showUserLocationWindow: true,
     geolocationEnabled: false
   };
 

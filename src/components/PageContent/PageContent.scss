@@ -12,6 +12,7 @@
   width: 100%;
   padding: 50px 0px;
   border: 1px solid red;
+  justify-content: center;
 
   &__home-button {
     font-size: 1.6rem;
@@ -22,6 +23,7 @@
     border-radius: 30px;
     transition: 0.3s ease;
     font-weight: 400;
+    margin-right: 10px;
 
     &:hover {
       background-color: $main-blue-color;
