@@ -11,7 +11,6 @@
   display: flex;
   width: 100%;
   padding: 50px 0px;
-  border: 1px solid red;
   justify-content: center;
 
   &__home-button {
@@ -33,11 +32,36 @@
 }
 
 .main-content {
-  display: flex;
+  width: 80%;
+  margin: 0 auto;
+  display: grid;
+  // grid-template-columns: repeat(5, auto [col-start]);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+  column-gap: 50px;
+  row-gap: 50px;
   justify-content: flex-start;
   flex-wrap: wrap;
   margin-top: 3rem;
   padding: 2rem;
+
+  &__show-info-button {
+    border: 3px solid $main-blue-color;
+    cursor: pointer;
+    width: 40%;
+    margin: 0 auto;
+    transition: 0.3s ease;
+    border-radius: 30px;
+    text-align: center;
+    color: $main-blue-color;
+    padding: 5px 0;
+    margin-top: 9px;
+
+    &:hover {
+      background-color: $main-blue-color;
+      color: #ffffff;
+    }
+  }
 }
 
 .detailed-info__button {

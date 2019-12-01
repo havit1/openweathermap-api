@@ -13,7 +13,6 @@ const PageContentRender = ({
   changeButtonColor,
   handleLike,
   showComponent,
-  searchedCity,
   showPage,
   data,
   showUserLocationWindow,
@@ -40,15 +39,18 @@ const PageContentRender = ({
             <div>
               {showUserLocationWindow ? (
                 <div>
-                  <h1>Your location information:</h1>
                   <UsersCityWeather
                     showComponent={_onButtonClick}
                   ></UsersCityWeather>
                 </div>
               ) : null}
-              <button onClick={onCloseUserLocationWindow}>
-                {showUserLocationWindow ? "Close" : "Show"} user location window
-              </button>
+              <div
+                className="main-content__show-info-button"
+                onClick={onCloseUserLocationWindow}
+              >
+                {showUserLocationWindow ? "Hide" : "Show"} weather in your
+                location
+              </div>
             </div>
           ) : null}
           <div className="main-content">

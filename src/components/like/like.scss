@@ -1,7 +1,27 @@
-.button {
-  background-color: white;
+@import "../styles/variables";
 
-  &-green {
-    background-color: greenyellow;
+.like-button {
+  background-color: white;
+  cursor: pointer;
+  border: none;
+  width: 20px;
+  height: 20px;
+  background-color: $main-blue-color;
+  color: #ffffff;
+
+  transition-duration: 500ms;
+
+  &_submitted {
+    width: 20px;
+    height: 20px;
+    border: none;
+    color: #ffffff;
+    background-color: #bfc1c8;
+
+    transition-duration: 500ms;
+
+    &:hover {
+      background-color: red;
+    }
   }
 }

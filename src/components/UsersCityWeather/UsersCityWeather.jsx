@@ -17,9 +17,7 @@ class UsersCityWeather extends Component {
           pos.coords.latitude,
           pos.coords.longitude
         );
-        this.setState({ cityInfo: userWeather }, () => {
-          console.log(userWeather);
-        });
+        this.setState({ cityInfo: userWeather });
       },
       err => console.warn(`ERROR(${err.code}): ${err.message}`),
       { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
@@ -76,7 +74,6 @@ class UsersCityWeather extends Component {
 
     const minMaxTemp = this.getMinMaxTemp(weatherForNextDays);
 
-    console.log(minMaxTemp);
     return minMaxTemp;
   };
 
@@ -101,54 +98,71 @@ class UsersCityWeather extends Component {
 
   render() {
     return (
-      <div className="user-info">
-        {this.state.cityInfo.length === 0 ? (
-          <h1>Loading</h1>
-        ) : (
-          <div>
-            <div className="user-info__today">
-              <h2>
-                City: {this.state.cityInfo.data.city.name},{" "}
-                {this.state.cityInfo.data.city.country}
-              </h2>
-
-              <h3>
-                Temperature:{" "}
-                {Math.round(this.state.cityInfo.data.list[0].main.temp)}°C
-              </h3>
-              <h3>
-                {this.getDayName(this.state.cityInfo.data.list[0].dt_txt)}
-              </h3>
-              <img
-                alt="/"
-                src={`http://openweathermap.org/img/wn/${this.state.cityInfo.data.list[0].weather[0].icon}@2x.png`}
-              ></img>
-              {/*
-              <p>Humidity: {this.state.cityInfo.main.humidity}</p>
-              <button
-                className="user-info__button"
-                onClick={() => this.props.showComponent(this.state.cityInfo.id)}
-              >
-                Details
-              </button> */}
+      <div>
+        <div className="user-info">
+          {this.state.cityInfo.length === 0 ? (
+            <div className="lds-ripple">
+              <div></div>
+              <div></div>
             </div>
-            <div className="user-info__nextdays">
-              {this.getWeatherForFutureDays(this.state.cityInfo.data.list).map(
-                item => (
-                  <div key={item.date}>
-                    <h3>{this.getDayName(item.date)}</h3>
+          ) : (
+            <div className="user-info__wrapper">
+              <div className="user-info__today">
+                <h3 className="user-info__today-header">
+                  {this.getDayName(this.state.cityInfo.data.list[0].dt_txt)}
+                </h3>
+                <h4>
+                  {this.state.cityInfo.data.city.name},{" "}
+                  {this.state.cityInfo.data.city.country}
+                </h4>
+                <div className="user-info__today-temp-icon">
+                  <h1>
+                    {Math.round(this.state.cityInfo.data.list[0].main.temp)}°C
+                  </h1>
+                  <img
+                    alt="/"
+                    src={`http://openweathermap.org/img/wn/${this.state.cityInfo.data.list[0].weather[0].icon}@2x.png`}
+                  ></img>
+                </div>
+                <div className="user-info__today-additional">
+                  <span>
+                    Humidity: {this.state.cityInfo.data.list[0].main.humidity}
+                  </span>
+                  <span>
+                    Wind: {this.state.cityInfo.data.list[0].wind.speed}
+                  </span>
+                </div>
+                {/* <button
+                  className="user-info__today-button"
+                  onClick={() =>
+                    this.props.showComponent(this.state.cityInfo.data.city.id)
+                  }
+                >
+                  Details
+                </button> */}
+              </div>
+              <div className="user-info__nextdays">
+                {this.getWeatherForFutureDays(
+                  this.state.cityInfo.data.list
+                ).map(item => (
+                  <div className="user-info__nextdays-nextday" key={item.date}>
+                    <h3 className="user-info__nextdays-nextday-header">
+                      {this.getDayName(item.date)}
+                    </h3>
                     <img
                       alt="/"
-                      src={`http://openweathermap.org/img/wn/${item.icon}.png`}
+                      src={`http://openweathermap.org/img/wn/${item.icon}@2x.png`}
                     ></img>
-                    <div>Min temp : {item.minTemp}</div>
-                    <div>Max temp : {item.maxTemp}</div>
+                    <div className="user-info__nextdays-nextday-temperature">
+                      <div>{item.maxTemp}°C</div>
+                      <div>{item.minTemp}°</div>
+                    </div>
                   </div>
-                )
-              )}
+                ))}
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     );
   }

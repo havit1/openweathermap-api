@@ -1,12 +1,16 @@
+@import "../styles/variables";
+
 .city-card {
-  position: relative;
-  margin: 20px;
-  background-color: #2668f5b6;
+  display: grid;
+  cursor: pointer;
+  background-color: #36394ba6;
+  border-radius: 10px;
   color: #ffffff;
   padding: 10px;
+  grid-auto-flow: dense;
   transition-duration: 1s;
 
   &:hover {
-    background-color: #2667f5;
+    background-color: rgba(0, 0, 0, 0.1);
   }
 }

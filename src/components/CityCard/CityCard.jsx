@@ -12,9 +12,14 @@ function CityCard({ cityInfo, changeButtonColor, handleLike, showComponent }) {
           handleLike={handleLike}
         ></Like>
         <div onClick={() => showComponent(cityInfo.id)}>
-          <h2>City: {cityInfo.name}</h2>
-          <p>Country: {cityInfo.sys.country}</p>
-          <h3>Temperature: {Math.round(cityInfo.main.temp)}°C</h3>
+          <h2>
+            {cityInfo.name}, {cityInfo.sys.country}
+          </h2>
+          <img
+            alt="/"
+            src={`http://openweathermap.org/img/wn/${cityInfo.weather[0].icon}@2x.png`}
+          ></img>
+          <h3>{Math.round(cityInfo.main.temp)}°C</h3>
           <p>Humidity: {cityInfo.main.humidity}</p>
         </div>
       </div>
