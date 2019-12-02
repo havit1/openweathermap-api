@@ -8,7 +8,6 @@ import "./PageContent.scss";
 const PageContentRender = ({
   onMainBtnClick,
   closeDetailedInfo,
-  onSearch,
   _onButtonClick,
   changeButtonColor,
   handleLike,
@@ -29,7 +28,6 @@ const PageContentRender = ({
         </button>
         <Search
           closeDetailedInfo={closeDetailedInfo}
-          onSearch={onSearch}
           getSearchedCityWeather={getSearchedCityWeather}
         ></Search>
       </header>
@@ -80,12 +78,12 @@ const PageContentRender = ({
           </div>
         </main>
       ) : (
-        <div>
+        <React.Fragment>
           <button className="detailed-info__button" onClick={closeDetailedInfo}>
             Close detailed info
           </button>
           <DetailedInfo city={showPage}></DetailedInfo>
-        </div>
+        </React.Fragment>
       )}
     </div>
   );

@@ -1,8 +1,7 @@
 .detailed-info {
-  color: #2667f5;
-
-  & img {
-    margin: 10px auto;
+  &__body {
+    border: 1px solid red;
+    display: flex;
   }
 }
 
@@ -17,4 +16,8 @@
 .loading {
   text-align: center;
   color: #2667f5;
+}
+
+.page-item {
+  background: white;
 }

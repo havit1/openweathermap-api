@@ -8,6 +8,10 @@
   height: 20px;
   background-color: $main-blue-color;
   color: #ffffff;
+  position: absolute;
+  right: 7px;
+  top: 7px;
+  border-radius: 10px;
 
   transition-duration: 500ms;
 
@@ -17,8 +21,12 @@
     border: none;
     color: #ffffff;
     background-color: #bfc1c8;
-
+    display: inline-block;
+    position: absolute;
     transition-duration: 500ms;
+    right: 7px;
+    top: 7px;
+    border-radius: 10px;
 
     &:hover {
       background-color: red;

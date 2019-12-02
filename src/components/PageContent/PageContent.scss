@@ -2,11 +2,6 @@
 @import "../styles/mixins.scss";
 @import "../styles/variables";
 
-.wrapper {
-  background: #1e202b;
-  height: 100vh;
-}
-
 .header {
   display: flex;
   width: 100%;
@@ -35,8 +30,7 @@
   width: 80%;
   margin: 0 auto;
   display: grid;
-  // grid-template-columns: repeat(5, auto [col-start]);
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, max-content));
 
   column-gap: 50px;
   row-gap: 50px;

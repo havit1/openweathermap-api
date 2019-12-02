@@ -31,6 +31,7 @@ class UsersCityWeather extends Component {
   }
 
   componentDidMount() {
+    if (this.props.weatherInfo) return;
     this.getUserWeather();
   }
 

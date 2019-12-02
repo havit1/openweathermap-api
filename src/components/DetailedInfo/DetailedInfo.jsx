@@ -8,7 +8,8 @@ class DetailedInfo extends Component {
     data: {},
     showComponent: false,
     image: {},
-    currentPage: 1
+    currentPage: 1,
+    sortedData: []
   };
 
   getDetailedInfo = id => {
@@ -33,32 +34,77 @@ class DetailedInfo extends Component {
 
     this.setState({ data: detailedInfo.data });
 
+    const sortedData = this.getWeatherForEachDay(detailedInfo.data.list);
+
+    this.setState({ sortedData });
+
     const photo = await this.getPhoto(this.state.data.city.name);
 
     this.setState({
-      // data: detailedInfo.data,
       image: photo.data.results[Math.floor(Math.random() * (10 - 0) + 0)],
       showComponent: true
     });
   }
 
+  getDayName = dateString => {
+    dateString.split(" ").join("T");
+    const days = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ];
+    const d = new Date(dateString);
+    const dayName = days[d.getDay()];
+    return dayName;
+  };
+
+  getWeatherForEachDay = weatherListArray => {
+    const weatherForNextDays = [];
+    const weatherListTest = [...weatherListArray];
+
+    for (let i = 0; i < weatherListTest.length; i++) {
+      const weatherListNextDay = weatherListTest.filter(
+        day =>
+          new Date(weatherListTest[0].dt_txt.split(" ").join("T")).getDay() ===
+          new Date(day.dt_txt.split(" ").join("T")).getDay()
+      );
+
+      weatherForNextDays.push(weatherListNextDay);
+
+      weatherListTest.splice(
+        weatherListTest.indexOf(weatherListNextDay[0]),
+        weatherListTest.indexOf(
+          weatherListNextDay[weatherListNextDay.length - 1]
+        ) + 1
+      );
+    }
+
+    console.log(weatherForNextDays);
+
+    return weatherForNextDays;
+  };
+
   render() {
-    const { image, data, showComponent, currentPage } = this.state;
+    const { image, showComponent, currentPage, sortedData } = this.state;
 
-    const info = paginate(data.list, currentPage, 7);
+    const info = paginate(sortedData, currentPage, 1);
 
-    const paginatedData = { ...data, info };
+    const paginatedData = { ...sortedData, info };
 
     return (
-      <React.Fragment>
-        <DetailedInfoBody
-          photo={image}
-          data={paginatedData}
-          showComponent={showComponent}
-          handlePageChange={this.handlePageChange}
-          currentPage={currentPage}
-        />
-      </React.Fragment>
+      <DetailedInfoBody
+        getDayName={this.getDayName}
+        sortedData={sortedData}
+        photo={image}
+        data={paginatedData}
+        showComponent={showComponent}
+        handlePageChange={this.handlePageChange}
+        currentPage={currentPage}
+      />
     );
   }
 }

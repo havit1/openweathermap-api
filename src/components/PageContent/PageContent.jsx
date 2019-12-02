@@ -12,7 +12,8 @@ class PageContent extends Component {
     searchedCity: "",
     showPage: "",
     showUserLocationWindow: true,
-    geolocationEnabled: false
+    geolocationEnabled: false,
+    showComponent: false
   };
 
   getCitiesFromLS() {
@@ -34,7 +35,6 @@ class PageContent extends Component {
   }
 
   handleLike = incomeCityId => {
-    //good, i guess
     let _cities = [...this.state.data];
     const clickedCity = this.state.data.find(city => city.id === incomeCityId);
     const index = _cities.indexOf(clickedCity);
@@ -50,13 +50,11 @@ class PageContent extends Component {
   };
 
   changeButtonColor = incomeCityId => {
-    //dk what's going on here
     const clickedCity = this.state.data.find(city => city.id === incomeCityId);
     return clickedCity !== undefined ? true : false;
   };
 
   getWeatherInfo = citiesList => {
-    //ok
     if (!citiesList) return null;
 
     let idsToSearch = citiesList.map(city => city.id).join(",");
@@ -67,7 +65,6 @@ class PageContent extends Component {
   };
 
   async componentDidMount() {
-    //maybe ok
     const baseCitiesList = this.getCitiesFromLS();
     const weatherInfo = await this.getWeatherInfo(baseCitiesList);
     this.setState({ data: weatherInfo.data.list, cities: baseCitiesList });
@@ -81,7 +78,6 @@ class PageContent extends Component {
   };
 
   _onButtonClick = id => {
-    //wut
     const showComponent = !this.state.showComponent;
     this.setState({
       showComponent
@@ -90,18 +86,15 @@ class PageContent extends Component {
   };
 
   closeDetailedInfo = () => {
-    //wat
     this.setState({ showComponent: false }, this.setState({ showPage: "" }));
   };
 
   onMainBtnClick = () => {
-    //why
     this.closeDetailedInfo();
     this.setState({ searchedCityInfo: [] });
   };
 
   onCloseUserLocationWindow = () => {
-    //that's ok
     this.setState({
       showUserLocationWindow: !this.state.showUserLocationWindow
     });
@@ -112,9 +105,9 @@ class PageContent extends Component {
       <React.Fragment>
         <ToastContainer />
         <PageContentRender
-          {...this} //wtf
-          {...this.props} //wtf
-          {...this.state} //wtf
+          {...this}
+          {...this.props}
+          {...this.state}
         ></PageContentRender>
       </React.Fragment>
     );
