@@ -59,12 +59,16 @@
 }
 
 .detailed-info__button {
-  background-color: #2667f5;
-  color: white;
+  border: 2px solid $main-blue-color;
+  color: $main-blue-color;
+  background-color: transparent;
+  padding: 5px;
   margin-bottom: 5px;
-  border-radius: 0;
-}
+  border-radius: 10px;
+  margin-left: 75px;
 
-.main-content-wrapper {
-  margin-top: 20px;
+  &:hover {
+    background-color: $main-blue-color;
+    color: #ffffff;
+  }
 }

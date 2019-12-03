@@ -80,7 +80,7 @@ const PageContentRender = ({
       ) : (
         <React.Fragment>
           <button className="detailed-info__button" onClick={closeDetailedInfo}>
-            Close detailed info
+            ←
           </button>
           <DetailedInfo city={showPage}></DetailedInfo>
         </React.Fragment>

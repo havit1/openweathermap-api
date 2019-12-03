@@ -4,13 +4,16 @@ import DetailedInfoBody from "./DetailedInfoBody";
 import { paginate } from "../../utils/paginate";
 
 class DetailedInfo extends Component {
-  state = {
-    data: {},
-    showComponent: false,
-    image: {},
-    currentPage: 1,
-    sortedData: []
-  };
+  constructor() {
+    super();
+    this.state = {
+      data: {},
+      showComponent: false,
+      image: {},
+      currentPage: 1,
+      sortedData: []
+    };
+  }
 
   getDetailedInfo = id => {
     return http.get(
@@ -20,7 +23,7 @@ class DetailedInfo extends Component {
 
   getPhoto = name => {
     return http.get(
-      `https://api.unsplash.com/search/photos?page=1-10&query=${name},town&client_id=1daed900b99463debb658164eea9672dc7f95f9939b97a745a479ddbe5592be8`
+      `https://api.unsplash.com/search/photos?count=10&query=${name},town&client_id=1daed900b99463debb658164eea9672dc7f95f9939b97a745a479ddbe5592be8`
     );
   };
 
@@ -40,8 +43,10 @@ class DetailedInfo extends Component {
 
     const photo = await this.getPhoto(this.state.data.city.name);
 
+    console.log(photo);
+
     this.setState({
-      image: photo.data.results[Math.floor(Math.random() * (10 - 0) + 0)],
+      image: photo.data.results,
       showComponent: true
     });
   }
