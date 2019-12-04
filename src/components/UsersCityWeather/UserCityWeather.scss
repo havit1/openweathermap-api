@@ -2,53 +2,20 @@
 @import "../styles/mixins.scss";
 
 .user-info {
-  border-radius: 3px;
+  width: 75%;
   margin: 0 auto;
-  width: 1179px;
-  transition: 500ms;
-
-  .lds-ripple {
-    display: inline-block;
-    position: relative;
-    width: 80px;
-    height: 80px;
-
-    .lds-ripple div {
-      position: absolute;
-      opacity: 1;
-      border-radius: 50%;
-      animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
-    }
-    .lds-ripple div:nth-child(2) {
-      animation-delay: -0.5s;
-    }
-    @keyframes lds-ripple {
-      0% {
-        top: 36px;
-        left: 36px;
-        width: 0;
-        height: 0;
-        opacity: 1;
-      }
-      100% {
-        top: 0px;
-        left: 0px;
-        width: 72px;
-        height: 72px;
-        opacity: 0;
-      }
-    }
-  }
 
   &__wrapper {
-    width: 100%;
+    max-width: 100%;
     display: flex;
+    flex-wrap: wrap;
     background-color: #36394ba6;
     border-radius: 10px;
   }
 
   &__today {
-    width: 420px;
+    flex: 1 0 10%;
+    justify-content: center;
 
     &-header {
       width: 100%;
@@ -67,10 +34,11 @@
     }
 
     &-temp-icon {
+      width: 100%;
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       padding: 0 0 0 20px;
-      width: 100%;
 
       & > h1 {
         color: #ffffff;
@@ -110,6 +78,7 @@
   &__nextdays {
     flex: 1 1 auto;
     display: flex;
+    flex-wrap: wrap;
 
     &-nextday {
       &:nth-child(odd) {
@@ -118,11 +87,12 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      // justify-content: center;
       flex: 1 1 auto;
 
       &-header {
-        text-align: center;
         width: 100%;
+        text-align: center;
         color: #bfc1c8;
         background-color: rgba(0, 0, 0, 0.1);
         padding: 10px;
@@ -137,6 +107,7 @@
       &-temperature {
         margin-top: 18px;
         text-align: center;
+        margin-bottom: 10px;
 
         :nth-child(odd) {
           font-size: 1.3em;
@@ -150,6 +121,39 @@
           color: #bfc1c8;
         }
       }
+    }
+  }
+}
+
+.lds-ripple {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+
+  .lds-ripple div {
+    position: absolute;
+    opacity: 1;
+    border-radius: 50%;
+    animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+  }
+  .lds-ripple div:nth-child(2) {
+    animation-delay: -0.5s;
+  }
+  @keyframes lds-ripple {
+    0% {
+      top: 36px;
+      left: 36px;
+      width: 0;
+      height: 0;
+      opacity: 1;
+    }
+    100% {
+      top: 0px;
+      left: 0px;
+      width: 72px;
+      height: 72px;
+      opacity: 0;
     }
   }
 }

@@ -99,41 +99,38 @@ class UsersCityWeather extends Component {
 
   render() {
     return (
-      <div>
-        <div className="user-info">
-          {this.state.cityInfo.length === 0 ? (
-            <div className="lds-ripple">
-              <div></div>
-              <div></div>
-            </div>
-          ) : (
-            <div className="user-info__wrapper">
-              <div className="user-info__today">
-                <h3 className="user-info__today-header">
-                  {this.getDayName(this.state.cityInfo.data.list[0].dt_txt)}
-                </h3>
-                <h4>
-                  {this.state.cityInfo.data.city.name},{" "}
-                  {this.state.cityInfo.data.city.country}
-                </h4>
-                <div className="user-info__today-temp-icon">
-                  <h1>
-                    {Math.round(this.state.cityInfo.data.list[0].main.temp)}°C
-                  </h1>
-                  <img
-                    alt="/"
-                    src={`http://openweathermap.org/img/wn/${this.state.cityInfo.data.list[0].weather[0].icon}@2x.png`}
-                  ></img>
-                </div>
-                <div className="user-info__today-additional">
-                  <span>
-                    Humidity: {this.state.cityInfo.data.list[0].main.humidity}
-                  </span>
-                  <span>
-                    Wind: {this.state.cityInfo.data.list[0].wind.speed}
-                  </span>
-                </div>
-                {/* <button
+      <div className="user-info">
+        {this.state.cityInfo.length === 0 ? (
+          <div className="lds-ripple">
+            <div></div>
+            <div></div>
+          </div>
+        ) : (
+          <div className="user-info__wrapper">
+            <div className="user-info__today">
+              <h3 className="user-info__today-header">
+                {this.getDayName(this.state.cityInfo.data.list[0].dt_txt)}
+              </h3>
+              <h4>
+                {this.state.cityInfo.data.city.name},{" "}
+                {this.state.cityInfo.data.city.country}
+              </h4>
+              <div className="user-info__today-temp-icon">
+                <h1>
+                  {Math.round(this.state.cityInfo.data.list[0].main.temp)}°C
+                </h1>
+                <img
+                  alt="/"
+                  src={`http://openweathermap.org/img/wn/${this.state.cityInfo.data.list[0].weather[0].icon}@2x.png`}
+                ></img>
+              </div>
+              <div className="user-info__today-additional">
+                <span>
+                  Humidity: {this.state.cityInfo.data.list[0].main.humidity}
+                </span>
+                <span>Wind: {this.state.cityInfo.data.list[0].wind.speed}</span>
+              </div>
+              {/* <button
                   className="user-info__today-button"
                   onClick={() =>
                     this.props.showComponent(this.state.cityInfo.data.city.id)
@@ -141,11 +138,10 @@ class UsersCityWeather extends Component {
                 >
                   Details
                 </button> */}
-              </div>
-              <div className="user-info__nextdays">
-                {this.getWeatherForFutureDays(
-                  this.state.cityInfo.data.list
-                ).map(item => (
+            </div>
+            <div className="user-info__nextdays">
+              {this.getWeatherForFutureDays(this.state.cityInfo.data.list).map(
+                item => (
                   <div className="user-info__nextdays-nextday" key={item.date}>
                     <h3 className="user-info__nextdays-nextday-header">
                       {this.getDayName(item.date)}
@@ -159,11 +155,11 @@ class UsersCityWeather extends Component {
                       <div>{item.minTemp}°</div>
                     </div>
                   </div>
-                ))}
-              </div>
+                )
+              )}
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     );
   }

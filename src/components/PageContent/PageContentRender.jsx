@@ -21,71 +21,74 @@ const PageContentRender = ({
   searchedCityInfo
 }) => {
   return (
-    <div className="wrapper">
-      <header className="header">
-        <button className="header__home-button" onClick={onMainBtnClick}>
-          Home
-        </button>
-        <Search
-          closeDetailedInfo={closeDetailedInfo}
-          getSearchedCityWeather={getSearchedCityWeather}
-        ></Search>
-      </header>
-      {!showComponent ? (
-        <main className="main-content-wrapper">
-          {geolocationEnabled === "granted" ? (
-            <div>
-              {showUserLocationWindow ? (
-                <div>
+    <React.Fragment>
+      <div className="wrapper">
+        <header className="header">
+          <button className="header__home-button" onClick={onMainBtnClick}>
+            Home
+          </button>
+          <Search
+            closeDetailedInfo={closeDetailedInfo}
+            getSearchedCityWeather={getSearchedCityWeather}
+          ></Search>
+        </header>
+        {!showComponent ? (
+          <main className="main-content-wrapper">
+            {geolocationEnabled === "granted" ? (
+              <div>
+                {showUserLocationWindow ? (
                   <UsersCityWeather
                     showComponent={_onButtonClick}
                   ></UsersCityWeather>
+                ) : null}
+                <div
+                  className="main-content__show-info-button"
+                  onClick={onCloseUserLocationWindow}
+                >
+                  {showUserLocationWindow ? "Hide" : "Show"} weather in your
+                  location
                 </div>
-              ) : null}
-              <div
-                className="main-content__show-info-button"
-                onClick={onCloseUserLocationWindow}
-              >
-                {showUserLocationWindow ? "Hide" : "Show"} weather in your
-                location
               </div>
-            </div>
-          ) : null}
-          <div className="main-content">
-            {searchedCityInfo !== null ? (
-              searchedCityInfo.length !== 0 ? (
-                <CityCard
-                  changeButtonColor={changeButtonColor}
-                  key={searchedCityInfo.id}
-                  cityInfo={searchedCityInfo}
-                  handleLike={handleLike}
-                  showComponent={_onButtonClick}
-                ></CityCard>
-              ) : (
-                data.map(city => (
+            ) : null}
+            <div className="main-content">
+              {searchedCityInfo !== null ? (
+                searchedCityInfo.length !== 0 ? (
                   <CityCard
                     changeButtonColor={changeButtonColor}
-                    key={city.id}
-                    cityInfo={city}
+                    key={searchedCityInfo.id}
+                    cityInfo={searchedCityInfo}
                     handleLike={handleLike}
                     showComponent={_onButtonClick}
                   ></CityCard>
-                ))
-              )
-            ) : (
-              <h1>No such city or misspelled name</h1>
-            )}
-          </div>
-        </main>
-      ) : (
-        <React.Fragment>
-          <button className="detailed-info__button" onClick={closeDetailedInfo}>
-            ←
-          </button>
-          <DetailedInfo city={showPage}></DetailedInfo>
-        </React.Fragment>
-      )}
-    </div>
+                ) : (
+                  data.map(city => (
+                    <CityCard
+                      changeButtonColor={changeButtonColor}
+                      key={city.id}
+                      cityInfo={city}
+                      handleLike={handleLike}
+                      showComponent={_onButtonClick}
+                    ></CityCard>
+                  ))
+                )
+              ) : (
+                <h1>No such city or misspelled name</h1>
+              )}
+            </div>
+          </main>
+        ) : (
+          <React.Fragment>
+            <button
+              className="detailed-info__button"
+              onClick={closeDetailedInfo}
+            >
+              ←
+            </button>
+            <DetailedInfo city={showPage}></DetailedInfo>
+          </React.Fragment>
+        )}
+      </div>
+    </React.Fragment>
   );
 };
 

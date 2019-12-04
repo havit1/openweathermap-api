@@ -1,10 +1,11 @@
-// @import "../styles/base.scss";
+@import "../styles/base.scss";
 @import "../styles/mixins.scss";
 @import "../styles/variables";
 
 .header {
-  display: flex;
   width: 100%;
+  display: flex;
+  flex-wrap: wrap;
   padding: 50px 0px;
   justify-content: center;
 
@@ -31,11 +32,9 @@
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, max-content));
-
   column-gap: 50px;
   row-gap: 50px;
-  justify-content: flex-start;
-  flex-wrap: wrap;
+  justify-content: center;
   margin-top: 3rem;
   padding: 2rem;
 
@@ -71,4 +70,15 @@
     background-color: $main-blue-color;
     color: #ffffff;
   }
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 70px;
+  background-color: #36394ba6;
+  padding: 20px;
+  color: #ffffff;
+  font-size: 2rem;
 }
