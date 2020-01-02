@@ -43,8 +43,6 @@ class DetailedInfo extends Component {
 
     const photo = await this.getPhoto(this.state.data.city.name);
 
-    console.log(photo);
-
     this.setState({
       image: photo.data.results,
       showComponent: true
@@ -87,9 +85,6 @@ class DetailedInfo extends Component {
         ) + 1
       );
     }
-
-    console.log(weatherForNextDays);
-
     return weatherForNextDays;
   };
 

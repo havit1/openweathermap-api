@@ -130,14 +130,6 @@ class UsersCityWeather extends Component {
                 </span>
                 <span>Wind: {this.state.cityInfo.data.list[0].wind.speed}</span>
               </div>
-              {/* <button
-                  className="user-info__today-button"
-                  onClick={() =>
-                    this.props.showComponent(this.state.cityInfo.data.city.id)
-                  }
-                >
-                  Details
-                </button> */}
             </div>
             <div className="user-info__nextdays">
               {this.getWeatherForFutureDays(this.state.cityInfo.data.list).map(

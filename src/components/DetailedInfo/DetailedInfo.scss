@@ -21,7 +21,8 @@
   }
 
   &__weather-card {
-    width: 15%;
+    flex-grow: 1;
+
     &:nth-child(even) {
       background-color: rgba(0, 0, 0, 0.1);
     }
@@ -98,6 +99,42 @@
       & > img {
         width: 100%;
       }
+    }
+  }
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+
+  &_text {
+    position: relative;
+    color: #212121;
+    font-size: 150px;
+    letter-spacing: 50px;
+    text-transform: uppercase;
+    border-bottom: 18px solid #212121;
+
+    &:before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      content: "Loading...";
+      color: $main-blue-color;
+      border-bottom: 18px solid $main-blue-color;
+      overflow: hidden;
+      animation: loading 0.1s infinite linear;
+    }
+  }
+
+  @keyframes loading {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: 100%;
     }
   }
 }

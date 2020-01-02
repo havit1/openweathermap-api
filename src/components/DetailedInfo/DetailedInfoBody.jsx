@@ -43,7 +43,6 @@ const DetailedInfoBody = ({
               ))}
             </div>
           ))}
-
           <Pagination
             className="pagination"
             itemsCount={sortedData.length}
@@ -51,11 +50,10 @@ const DetailedInfoBody = ({
             currentPage={currentPage}
             onPageChange={handlePageChange}
           />
-
           <h1 className="awesome-photos">Awesome photos</h1>
           <div className="awesome-photos__wrapper">
             {photo.map(photo => (
-              <div className="awesome-photos__wrapper-photo">
+              <div key={photo.id} className="awesome-photos__wrapper-photo">
                 <img src={photo.urls.small} alt="" />
               </div>
             ))}
@@ -63,7 +61,7 @@ const DetailedInfoBody = ({
         </div>
       ) : (
         <div className="loading">
-          <h2>Still loading</h2>
+          <h1 className="loading_text">Loading...</h1>
         </div>
       )}
     </div>

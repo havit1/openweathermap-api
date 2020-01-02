@@ -40,10 +40,8 @@ class PageContent extends Component {
     const index = _cities.indexOf(clickedCity);
     if (clickedCity !== undefined) {
       _cities.splice(index, 1);
-      toast.warn("Deleted this city from main page");
     } else {
       _cities.push(this.state.searchedCityInfo);
-      toast.success("Added this city on main page");
     }
     this.setState({ data: _cities });
     localStorage.setItem("Cities", JSON.stringify(_cities));
