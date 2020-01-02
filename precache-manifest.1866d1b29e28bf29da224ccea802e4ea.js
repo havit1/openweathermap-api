@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "b848dde8f39d60b99c8b1aaed0842777",
+    "revision": "eb0ad4fc55ededd14e973d5acdc46a0c",
     "url": "/openweathermap-api/index.html"
   },
   {
@@ -8,15 +8,15 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/openweathermap-api/static/css/2.5dbdccff.chunk.css"
   },
   {
-    "revision": "ab7d191f6764f352baa3",
-    "url": "/openweathermap-api/static/css/main.73ecd0a0.chunk.css"
+    "revision": "e4616f8220744ee163c1",
+    "url": "/openweathermap-api/static/css/main.85cf8d53.chunk.css"
   },
   {
     "revision": "0f1c1d30792456218121",
     "url": "/openweathermap-api/static/js/2.b7d05869.chunk.js"
   },
   {
-    "revision": "ab7d191f6764f352baa3",
+    "revision": "e4616f8220744ee163c1",
     "url": "/openweathermap-api/static/js/main.cb4370b2.chunk.js"
   },
   {
