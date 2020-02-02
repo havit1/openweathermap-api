@@ -3,7 +3,7 @@ const urlsToCache = ["/"];
 
 self.addEventListener("install", event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).them(function(cache) {
+    caches.open(CACHE_NAME).then(function(cache) {
       console.log("Opened cache");
       return cache.addAll(urlsToCache);
     })
@@ -23,7 +23,7 @@ self.addEventListener("fetch", event => {
 });
 
 self.addEventListener("activate", event => {
-  const cacheWhiteList = ["Your forecast app"];
+  let cacheWhiteList = ["Your forecast app"];
   event.waitUntil(
     caches.keys().then(cachesNames => {
       return Promise.all(

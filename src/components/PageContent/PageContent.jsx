@@ -3,7 +3,6 @@ import http from "../../utils/httpService";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PageContentRender from "./PageContentRender";
-import { toast } from "react-toastify";
 
 class PageContent extends Component {
   state = {
