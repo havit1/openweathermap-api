@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import citiesList from "../../utils/city.list.json";
 import http from "../../utils/httpService";
 import "./Search.scss";
 
@@ -17,11 +16,13 @@ class Search extends Component {
     e.preventDefault();
     const search =
       this.state.searchedLine.length > 0
-        ? citiesList.find(city => city.name === this.state.searchedLine)
+        ? this.state.searchedLine
         : null;
     this.props.closeDetailedInfo();
     this.getSearchedWeatherInfo(search);
   };
+
+  // citiesList.find(city => city.name === this.state.searchedLine)
 
   getSearchedWeatherInfo = async searchedCity => {
     if (searchedCity === undefined) {
@@ -29,10 +30,13 @@ class Search extends Component {
       return;
     } else if (searchedCity === null) return null;
 
+console.log(searchedCity);
+
+
     const searchedCityInfo = await http.get(
-      `https://api.openweathermap.org/data/2.5/group?id=${searchedCity.id}&units=metric&APPID=97ea200bf11177ab3c207304b3be2608`
+      `https://api.openweathermap.org/data/2.5/weather?q=${searchedCity}&units=metric&APPID=97ea200bf11177ab3c207304b3be2608`
     );
-    this.props.getSearchedCityWeather(searchedCityInfo.data.list[0]);
+    this.props.getSearchedCityWeather(searchedCityInfo.data);
   };
 
   render() {

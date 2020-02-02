@@ -32,7 +32,7 @@ const DetailedInfoBody = ({
                     <div>{Math.round(time.main.temp)}°C</div>
                     <img
                       alt="/"
-                      src={`http://openweathermap.org/img/wn/${time.weather[0].icon}@2x.png`}
+                      src={`https://openweathermap.org/img/wn/${time.weather[0].icon}@2x.png`}
                     ></img>
                   </div>
                   <div className="detailed-info__weather-card-additional">

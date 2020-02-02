@@ -1,9 +1,10 @@
 import React from "react";
-import CityCard from "../CityCard/CityCard";
 import Search from "../Search/Search";
 import UsersCityWeather from "../UsersCityWeather/UsersCityWeather";
-import DetailedInfo from "../DetailedInfo/DetailedInfo";
 import "./PageContent.scss";
+
+const CityCard = React.lazy(() => import("../CityCard/CityCard"));
+const DetailedInfo = React.lazy(() => import("../DetailedInfo/DetailedInfo"));
 
 const PageContentRender = ({
   onMainBtnClick,
@@ -53,22 +54,26 @@ const PageContentRender = ({
             <div className="main-content">
               {searchedCityInfo !== null ? (
                 searchedCityInfo.length !== 0 ? (
-                  <CityCard
-                    changeButtonColor={changeButtonColor}
-                    key={searchedCityInfo.id}
-                    cityInfo={searchedCityInfo}
-                    handleLike={handleLike}
-                    showComponent={_onButtonClick}
-                  ></CityCard>
-                ) : (
-                  data.map(city => (
+                  <React.Suspense fallback={<div></div>}>
                     <CityCard
                       changeButtonColor={changeButtonColor}
-                      key={city.id}
-                      cityInfo={city}
+                      key={searchedCityInfo.id}
+                      cityInfo={searchedCityInfo}
                       handleLike={handleLike}
                       showComponent={_onButtonClick}
                     ></CityCard>
+                  </React.Suspense>
+                ) : (
+                  data.map(city => (
+                    <React.Suspense fallback={<div></div>}>
+                      <CityCard
+                        changeButtonColor={changeButtonColor}
+                        key={city.id}
+                        cityInfo={city}
+                        handleLike={handleLike}
+                        showComponent={_onButtonClick}
+                      ></CityCard>
+                    </React.Suspense>
                   ))
                 )
               ) : (
@@ -84,7 +89,9 @@ const PageContentRender = ({
             >
               ←
             </button>
-            <DetailedInfo city={showPage}></DetailedInfo>
+            <React.Suspense fallback={<div>Loading..</div>}>
+              <DetailedInfo city={showPage}></DetailedInfo>
+            </React.Suspense>
           </React.Fragment>
         )}
       </div>

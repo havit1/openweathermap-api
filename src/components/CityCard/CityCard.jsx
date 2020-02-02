@@ -17,7 +17,7 @@ function CityCard({ cityInfo, changeButtonColor, handleLike, showComponent }) {
           </h2>
           <img
             alt="/"
-            src={`http://openweathermap.org/img/wn/${cityInfo.weather[0].icon}@2x.png`}
+            src={`https://openweathermap.org/img/wn/${cityInfo.weather[0].icon}@2x.png`}
           ></img>
           <h3>{Math.round(cityInfo.main.temp)}°C</h3>
           <p>Humidity: {cityInfo.main.humidity}</p>
