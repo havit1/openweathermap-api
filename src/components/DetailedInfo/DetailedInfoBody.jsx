@@ -60,10 +60,10 @@ const DetailedInfoBody = ({
           </div>
         </div>
       ) : (
-        <div className="loading">
-          <h1 className="loading_text">Loading...</h1>
-        </div>
-      )}
+          <div className="loading">
+            <h1 className="loading_text">Loading...</h1>
+          </div>
+        )}
     </div>
   );
 };
